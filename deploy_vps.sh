@@ -23,7 +23,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # 配置变量
-PROJECT_DIR="/opt/os1b"
+PROJECT_DIR="/opt/security_answer_system"
 BACKEND_DIR="$PROJECT_DIR/rag-backend"
 FRONTEND_DIR="$PROJECT_DIR/rag-frontend"
 CURRENT_USER=$(logname || echo $SUDO_USER || whoami)
@@ -179,9 +179,12 @@ echo -e "${GREEN}✓ 前端构建完成${NC}"
 
 # 第十二步：配置Nginx
 echo -e "${YELLOW}[12/12] 🌐 配置Nginx...${NC}"
-cat > /etc/nginx/sites-available/os1b <<EOF
+# 使用8080端口（避免443端口冲突）
+NGINX_PORT=8080
+NGINX_CONFIG_NAME="security_answer_system"
+cat > /etc/nginx/sites-available/$NGINX_CONFIG_NAME <<EOF
 server {
-    listen 443;
+    listen $NGINX_PORT;
     server_name $VPS_IP;
 
     root $FRONTEND_DIR/dist;
@@ -212,7 +215,7 @@ server {
 }
 EOF
 
-ln -sf /etc/nginx/sites-available/os1b /etc/nginx/sites-enabled/
+ln -sf /etc/nginx/sites-available/$NGINX_CONFIG_NAME /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl restart nginx
 echo -e "${GREEN}✓ Nginx配置完成${NC}"
@@ -244,10 +247,10 @@ echo -e "${GREEN}✓ Systemd服务配置完成${NC}"
 
 # 第十四步：配置防火墙
 echo -e "${YELLOW}[14/14] 🔥 配置防火墙...${NC}"
-ufw allow 443/tcp
+ufw allow $NGINX_PORT/tcp
 ufw allow 22/tcp
 ufw --force enable
-echo -e "${GREEN}✓ 防火墙配置完成${NC}"
+echo -e "${GREEN}✓ 防火墙配置完成（开放端口$NGINX_PORT）${NC}"
 
 # 等待服务启动
 sleep 5
@@ -262,7 +265,7 @@ echo "=== Nginx状态 ==="
 systemctl status nginx --no-pager -l | head -3
 echo ""
 echo "=== 后端服务状态 ==="
-systemctl status os1b-backend --no-pager -l | head -5
+systemctl status $SERVICE_NAME --no-pager -l | head -5
 echo ""
 echo "=== Ollama状态 ==="
 systemctl status ollama --no-pager -l | head -3
@@ -272,14 +275,14 @@ echo -e "${GREEN}═════════════════════
 echo -e "${GREEN}  ✅ 部署完成！${NC}"
 echo -e "${GREEN}════════════════════════════════════════${NC}"
 echo ""
-echo -e "${GREEN}🌐 访问地址: http://$VPS_IP:443${NC}"
-echo -e "${GREEN}🔌 后端API: http://$VPS_IP:443/api${NC}"
+echo -e "${GREEN}🌐 访问地址: http://$VPS_IP:$NGINX_PORT${NC}"
+echo -e "${GREEN}🔌 后端API: http://$VPS_IP:$NGINX_PORT/api${NC}"
 echo ""
 echo -e "${YELLOW}📝 有用的命令:${NC}"
-echo "  查看后端日志: sudo journalctl -u os1b-backend -f"
-echo "  重启后端: sudo systemctl restart os1b-backend"
+echo "  查看后端日志: sudo journalctl -u $SERVICE_NAME -f"
+echo "  重启后端: sudo systemctl restart $SERVICE_NAME"
 echo "  重启Nginx: sudo systemctl restart nginx"
-echo "  更新代码: cd /opt/os1b && git pull && sudo systemctl restart os1b-backend"
+echo "  更新代码: cd $PROJECT_DIR && git pull && sudo systemctl restart $SERVICE_NAME"
 echo ""
 echo -e "${YELLOW}⚠️  重要提示:${NC}"
 echo "  1. 确保数据文件已上传到 /opt/os1b/rag-backend/data/"
