@@ -1,0 +1,30 @@
+{
+  "0": {
+    "subcategory": "Page Interaction",
+    "category": "Access Control"
+  },
+  "1": {
+    "subcategory": "Authentication",
+    "category": "Access Control"
+  },
+  "2": {
+    "subcategory": "Credential Handling",
+    "category": "Access Control"
+  },
+  "3": {
+    "subcategory": "Cipher Implementation",
+    "category": "Cryptography"
+  },
+  "4": {
+    "subcategory": "Exception Handling",
+    "category": "Secure Development"
+  },
+  "5": {
+    "subcategory": "Key and Encryption",
+    "category": "Cryptography"
+  },
+  "6": {
+    "subcategory": "Server Communication",
+    "category": "Network Security"
+  }
+}
