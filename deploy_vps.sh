@@ -105,7 +105,15 @@ mkdir -p $PROJECT_DIR
 chown $CURRENT_USER:$CURRENT_USER $PROJECT_DIR
 cd $PROJECT_DIR
 
-if [ -d ".git" ]; then
+# 检查是否已经在项目目录中（如果脚本在项目根目录运行）
+if [ -f "deploy_vps.sh" ] && [ -d "rag-backend" ] && [ -d "rag-frontend" ]; then
+    echo -e "${GREEN}✓ 检测到已在项目目录中${NC}"
+    # 更新代码（如果有更新）
+    if [ -d ".git" ]; then
+        echo -e "${YELLOW}更新代码...${NC}"
+        sudo -u $CURRENT_USER git pull || git pull
+    fi
+elif [ -d ".git" ]; then
     echo -e "${YELLOW}更新现有代码...${NC}"
     sudo -u $CURRENT_USER git pull || git pull
 else
@@ -113,16 +121,14 @@ else
     sudo -u $CURRENT_USER git clone $GITHUB_REPO . || git clone $GITHUB_REPO .
 fi
 
-# 检查项目结构
-if [ -d "final version/rag-backend" ] && [ ! -d "$BACKEND_DIR" ]; then
-    echo -e "${YELLOW}检测到final version文件夹，复制到正确位置...${NC}"
-    sudo -u $CURRENT_USER cp -r "final version/rag-backend" $PROJECT_DIR/ || cp -r "final version/rag-backend" $PROJECT_DIR/
-    sudo -u $CURRENT_USER cp -r "final version/rag-frontend" $PROJECT_DIR/ || cp -r "final version/rag-frontend" $PROJECT_DIR/
-fi
-
+# 检查项目结构（GitHub仓库直接在根目录有rag-backend和rag-frontend）
 if [ ! -d "$BACKEND_DIR" ] || [ ! -d "$FRONTEND_DIR" ]; then
     echo -e "${RED}❌ 错误: 项目文件未找到！${NC}"
-    echo -e "${YELLOW}请检查GitHub仓库结构${NC}"
+    echo -e "${YELLOW}请检查GitHub仓库结构，应该包含:${NC}"
+    echo -e "  - rag-backend/"
+    echo -e "  - rag-frontend/"
+    echo -e "${YELLOW}当前目录内容:${NC}"
+    ls -la
     exit 1
 fi
 
