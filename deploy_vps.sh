@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# OS1B项目VPS专用部署脚本
+# Security Answer System VPS专用部署脚本
 # 针对服务器: 109.123.231.129
 # GitHub: https://github.com/VtZ979/rag_secuity_question_set
 # 使用方法: sudo bash deploy_vps.sh
 
 set -e  # 遇到错误立即退出
 
-echo "🚀 开始部署OS1B项目到VPS (109.123.231.129)..."
+echo "🚀 开始部署Security Answer System到VPS (109.123.231.129)..."
 
 # 颜色输出
 RED='\033[0;31m'
@@ -29,11 +29,14 @@ FRONTEND_DIR="$PROJECT_DIR/rag-frontend"
 CURRENT_USER=$(logname || echo $SUDO_USER || whoami)
 GITHUB_REPO="https://github.com/VtZ979/rag_secuity_question_set.git"
 VPS_IP="109.123.231.129"
+SERVICE_NAME="security-answer-system-backend"
 
 echo -e "${BLUE}════════════════════════════════════════${NC}"
-echo -e "${BLUE}  OS1B项目自动部署脚本${NC}"
+echo -e "${BLUE}  Security Answer System 自动部署脚本${NC}"
 echo -e "${BLUE}  VPS: $VPS_IP${NC}"
 echo -e "${BLUE}  GitHub: $GITHUB_REPO${NC}"
+echo -e "${BLUE}  项目目录: $PROJECT_DIR${NC}"
+echo -e "${BLUE}  服务名称: $SERVICE_NAME${NC}"
 echo -e "${BLUE}════════════════════════════════════════${NC}"
 echo ""
 
@@ -152,9 +155,16 @@ if [ ! -f "data/LDA_doc/lda_model_best_7topics.model" ]; then
     MISSING_FILES=1
 fi
 
+# 检查SVM分类器（可能在pipeline目录，需要移动到models目录）
 if [ ! -f "app/models/svm_classifier.joblib" ]; then
-    echo -e "${RED}⚠️  警告: SVM分类器模型未找到！${NC}"
-    MISSING_FILES=1
+    if [ -f "app/pipeline/svm_classifier.joblib" ]; then
+        echo -e "${YELLOW}发现SVM分类器在pipeline目录，移动到models目录...${NC}"
+        mv app/pipeline/svm_classifier.joblib app/models/svm_classifier.joblib
+        echo -e "${GREEN}✓ SVM分类器已移动到正确位置${NC}"
+    else
+        echo -e "${RED}⚠️  警告: SVM分类器模型未找到！${NC}"
+        MISSING_FILES=1
+    fi
 fi
 
 if [ $MISSING_FILES -eq 1 ]; then
@@ -222,9 +232,9 @@ echo -e "${GREEN}✓ Nginx配置完成${NC}"
 
 # 第十三步：创建Systemd服务
 echo -e "${YELLOW}[13/13] ⚙️  配置Systemd服务...${NC}"
-cat > /etc/systemd/system/os1b-backend.service <<EOF
+cat > /etc/systemd/system/$SERVICE_NAME.service <<EOF
 [Unit]
-Description=OS1B FastAPI Backend
+Description=Security Answer System FastAPI Backend
 After=network.target ollama.service
 
 [Service]
@@ -241,8 +251,8 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable os1b-backend
-systemctl start os1b-backend
+systemctl enable $SERVICE_NAME
+systemctl start $SERVICE_NAME
 echo -e "${GREEN}✓ Systemd服务配置完成${NC}"
 
 # 第十四步：配置防火墙
@@ -285,9 +295,9 @@ echo "  重启Nginx: sudo systemctl restart nginx"
 echo "  更新代码: cd $PROJECT_DIR && git pull && sudo systemctl restart $SERVICE_NAME"
 echo ""
 echo -e "${YELLOW}⚠️  重要提示:${NC}"
-echo "  1. 确保数据文件已上传到 /opt/os1b/rag-backend/data/"
-echo "  2. 确保SVM分类器已上传到 /opt/os1b/rag-backend/app/models/"
+echo "  1. 确保数据文件已上传到 $BACKEND_DIR/data/"
+echo "  2. 确保SVM分类器已上传到 $BACKEND_DIR/app/models/"
 echo "  3. 首次启动可能需要2-3分钟加载数据"
-echo "  4. 如果遇到问题，查看日志: sudo journalctl -u os1b-backend -n 50"
+echo "  4. 如果遇到问题，查看日志: sudo journalctl -u $SERVICE_NAME -n 50"
 echo ""
 
