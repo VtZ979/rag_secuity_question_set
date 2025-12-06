@@ -5,7 +5,8 @@ import os
 from pathlib import Path
 
 # Base directory
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# __file__ is config/settings.py, so parent.parent is rag-backend/
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Data paths
 DATA_DIR = BASE_DIR / "data"

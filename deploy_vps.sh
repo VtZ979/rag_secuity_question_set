@@ -171,6 +171,16 @@ if [ $MISSING_FILES -eq 1 ]; then
     echo -e "${YELLOW}请手动上传缺失的数据文件${NC}"
 fi
 
+# 修复配置文件路径（BASE_DIR应该是rag-backend目录，不是上级目录）
+echo -e "${YELLOW}修复配置文件路径...${NC}"
+if [ -f "config/settings.py" ]; then
+    # 修复BASE_DIR路径：从parent.parent.parent改为parent.parent
+    sed -i 's/BASE_DIR = Path(__file__).resolve().parent.parent.parent/BASE_DIR = Path(__file__).resolve().parent.parent/' config/settings.py
+    echo -e "${GREEN}✓ 配置文件路径已修复${NC}"
+else
+    echo -e "${RED}⚠️  警告: 配置文件未找到${NC}"
+fi
+
 # 第十步：设置后端环境
 echo -e "${YELLOW}[10/12] 🔧 配置后端环境...${NC}"
 if [ ! -d "venv" ]; then

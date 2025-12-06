@@ -153,6 +153,10 @@ class RAGPipeline:
         
         # Process each relevant document
         for doc in relevant_docs:
+            # Skip documents with empty or None page_content
+            if not doc.page_content or not doc.page_content.strip():
+                continue
+            
             # Get similarity
             language = doc.metadata.get('skills', '')
             similarity = SimilarityService.classify_relevance(question, language)
