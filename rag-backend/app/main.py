@@ -89,12 +89,38 @@ def ask_question(req: QuestionRequest):
     Returns:
         RAG response with answer and related posts
     """
+    # Validate input
+    if not req.question or not req.question.strip():
+        from fastapi import HTTPException
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+    
+    # Validate question length
+    if len(req.question) > 1000:
+        from fastapi import HTTPException
+        raise HTTPException(
+            status_code=400,
+            detail="Question is too long (max 1000 characters)"
+        )
+    
     try:
         response = get_rag_response(req.question)
         return response
     except Exception as e:
-        return {
-            "error": str(e),
-            "message": "An error occurred while processing your question."
-        }
+        # Log detailed error
+        import traceback
+        print(f"Error processing question: {e}")
+        print(traceback.format_exc())
+        
+        # Return proper HTTP error status
+        from fastapi import HTTPException
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": str(e),
+                "message": "An error occurred while processing your question."
+            }
+        )
 

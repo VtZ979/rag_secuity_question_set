@@ -201,6 +201,8 @@ echo -e "${GREEN}✓ 前端构建完成${NC}"
 echo -e "${YELLOW}[12/12] 🌐 配置Nginx...${NC}"
 # 使用8080端口（避免443端口冲突）
 NGINX_PORT=8080
+# 后端API端口（可修改为其他端口避免冲突）
+BACKEND_PORT=8001
 NGINX_CONFIG_NAME="security_answer_system"
 cat > /etc/nginx/sites-available/$NGINX_CONFIG_NAME <<EOF
 server {
@@ -214,8 +216,9 @@ server {
         try_files \$uri \$uri/ /index.html;
     }
 
-    location /api {
-        proxy_pass http://127.0.0.1:8000;
+    location /api/ {
+        rewrite ^/api/(.*)\$ /\$1 break;
+        proxy_pass http://127.0.0.1:$BACKEND_PORT;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -252,7 +255,7 @@ Type=simple
 User=$CURRENT_USER
 WorkingDirectory=$BACKEND_DIR
 Environment="PATH=$BACKEND_DIR/venv/bin"
-ExecStart=$BACKEND_DIR/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+ExecStart=$BACKEND_DIR/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port $BACKEND_PORT
 Restart=always
 RestartSec=10
 

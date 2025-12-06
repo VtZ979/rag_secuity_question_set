@@ -77,7 +77,7 @@ Edit `src/config/api.js` to configure the API base URL:
 
 ```javascript
 const API_CONFIG = {
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   // ...
 };
 ```
@@ -85,7 +85,9 @@ const API_CONFIG = {
 Or set environment variable:
 
 ```bash
-VITE_API_URL=http://your-api-url:8000 npm run dev
+VITE_API_URL=/api npm run dev
+# Or for direct backend access (without proxy):
+VITE_API_URL=http://localhost:8001 npm run dev
 ```
 
 ## 🔌 Features
@@ -101,6 +103,7 @@ VITE_API_URL=http://your-api-url:8000 npm run dev
 ## 📝 Notes
 
 - Ensure the backend API is running before starting the frontend
-- The default API URL is `http://localhost:8000`
-- CORS is configured on the backend to allow requests from the frontend
+- The default API URL is `/api` (via Vite proxy to `http://localhost:8001`)
+- CORS is configured on the backend to allow requests from `http://localhost:3000`
+- Backend should be running on port 8001
 

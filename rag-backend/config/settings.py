@@ -31,6 +31,8 @@ RETRIEVAL_K = 3  # Number of documents to retrieve
 
 # API settings
 API_HOST = os.getenv("API_HOST", "0.0.0.0")
-API_PORT = int(os.getenv("API_PORT", 8000))
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",") if os.getenv("ALLOWED_ORIGINS") else ["*"]
+API_PORT = int(os.getenv("API_PORT", 8001))  # 默认端口改为 8001
+# 开发环境允许 localhost:3000 (Vite dev server)
+# 生产环境可以通过环境变量设置
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",") if os.getenv("ALLOWED_ORIGINS") else ["http://localhost:3000", "http://127.0.0.1:3000"]
 
