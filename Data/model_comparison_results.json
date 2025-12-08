@@ -1,0 +1,119 @@
+[
+  {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "search_type": "similarity",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 1.06951871657754,
+      "third_position": 0.0,
+      "not_found": 1.06951871657754,
+      "total_found_rate": 98.93048128342245,
+      "avg_query_time": 0.028227404477124546
+    },
+    "total_time": 10.55704927444458
+  },
+  {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "search_type": "mmr",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 0.53475935828877,
+      "third_position": 0.0,
+      "not_found": 1.6042780748663104,
+      "total_found_rate": 98.3957219251337,
+      "avg_query_time": 0.03002958692968848
+    },
+    "total_time": 11.231065511703491
+  },
+  {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "search_type": "similarity_score_threshold",
+    "accuracy": {
+      "first_position": 92.7807486631016,
+      "second_position": 0.0,
+      "third_position": 0.0,
+      "not_found": 7.219251336898395,
+      "total_found_rate": 92.7807486631016,
+      "avg_query_time": 0.027522691430892535
+    },
+    "total_time": 10.293486595153809
+  },
+  {
+    "model": "sentence-transformers/all-mpnet-base-v2",
+    "search_type": "similarity",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 1.06951871657754,
+      "third_position": 0.0,
+      "not_found": 1.06951871657754,
+      "total_found_rate": 98.93048128342245,
+      "avg_query_time": 0.027371954152928316
+    },
+    "total_time": 10.23711085319519
+  },
+  {
+    "model": "sentence-transformers/all-mpnet-base-v2",
+    "search_type": "mmr",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 0.53475935828877,
+      "third_position": 0.0,
+      "not_found": 1.6042780748663104,
+      "total_found_rate": 98.3957219251337,
+      "avg_query_time": 0.09550509733312271
+    },
+    "total_time": 35.71890640258789
+  },
+  {
+    "model": "sentence-transformers/all-mpnet-base-v2",
+    "search_type": "similarity_score_threshold",
+    "accuracy": {
+      "first_position": 92.7807486631016,
+      "second_position": 0.0,
+      "third_position": 0.267379679144385,
+      "not_found": 6.951871657754011,
+      "total_found_rate": 93.04812834224599,
+      "avg_query_time": 0.04209776421919226
+    },
+    "total_time": 15.744563817977905
+  },
+  {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "search_type": "similarity",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 1.06951871657754,
+      "third_position": 0.0,
+      "not_found": 1.06951871657754,
+      "total_found_rate": 98.93048128342245,
+      "avg_query_time": 0.026758711605786002
+    },
+    "total_time": 10.007758140563965
+  },
+  {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "search_type": "mmr",
+    "accuracy": {
+      "first_position": 97.86096256684492,
+      "second_position": 0.53475935828877,
+      "third_position": 0.0,
+      "not_found": 1.6042780748663104,
+      "total_found_rate": 98.3957219251337,
+      "avg_query_time": 0.02848397537986225
+    },
+    "total_time": 10.653006792068481
+  },
+  {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "search_type": "similarity_score_threshold",
+    "accuracy": {
+      "first_position": 93.04812834224599,
+      "second_position": 0.0,
+      "third_position": 0.0,
+      "not_found": 6.951871657754011,
+      "total_found_rate": 93.04812834224599,
+      "avg_query_time": 0.026320943220413943
+    },
+    "total_time": 9.844032764434814
+  }
+]

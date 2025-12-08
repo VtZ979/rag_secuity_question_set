@@ -1,227 +1,91 @@
-# Augmented Security Knowledge Hub - Final Version
+# 📝 OS1B Project Description 
+### 🧾Abstract:  
+Software developers frequently exhibit a deficit in security expertise, thereby exposing the systems, tools, and software they design to significant security vulnerabilities. This project aims to develop a knowledge base system aiming to systematically summarise the essential security skills required by software developers.  The project will utilize a dataset derived from a published research study. This dataset, compiled from developer discussion forums (Stack Overflow and GitHub), comprises 772 questions (386 + 386) concerning security challenges encountered by software developers across 15 programming languages, including Java, PHP, JavaScript, C/C++, and Python.  Generative AI models and Natural Language Processing Techniques will be employed to analyse the dataset and extract actionable recommendations for resolving the identified security challenges. These extracted recommendations will be used to the design of a knowledge base system intended to support software developers in addressing security concerns.
 
-This is the refactored and cleaned-up version of the RAG-based security knowledge hub project. The code has been reorganized for better maintainability, clarity, and demonstration purposes.
 
-## 📁 Project Structure
+### 🧑‍💻 Group Members: 
+- Cong Deng a1155047
+- Sheng Wang a1903948
+- Tianhua Zhang a1915934
+- Xin Wei a1912958
+- Yifan Gu a1909803
 
+🧑‍💼 Supervised by: **Dr Orvila Sarker**
+
+
+# 🔐 Augmented Security Knowledge Hub
+An AI-powered platform to help developers understand and solve security-related coding challenges by leveraging semantic search, classification, and large language models.
+
+### 🌟 Project Overview
+
+This project is developed as part of the MCI coursework. It aims to assist developers in resolving security-related programming questions by:
+
+- **Classifying** question types (e.g., how-to, conceptual, debugging)
+- **Retrieving** relevant Stack Overflow posts using semantic similarity
+- **Analyzing** sentiment and security topics
+- **Generating** summaries using a lightweight local LLM (e.g., LLaMA 3 via Ollama)
+
+### 🧩 Features
+
+- Natural language question input
+- AI classifier to categorize question intent
+- LDA-based topic extraction
+- Semantic similarity search on a curated Stack Overflow dataset
+- LLM-generated summaries for quick insights
+- Web-based user interface (React + Tailwind CSS)
+- FastAPI backend with modular architecture
+
+### 🧰 Tech Stack
+
+| Layer        | Technology                       |
+|--------------|----------------------------------|
+| Frontend     | React, Tailwind CSS              |
+| Backend      | FastAPI, Python, LangChain       |
+| Embeddings   | Sentence-Transformers (MiniLM)   |
+| LLM          | LLaMA 3 (via Ollama)             |
+| Deployment   | cloud-based sever                |
+
+### 🧪 Testing
+- Backend unit tests: pytest
+
+- API testing: Postman / curl
+
+- End-to-end test: manual input → output validation
+
+### 🗃️ Project Structure
 ```
-final version/
-├── rag-backend/          # FastAPI backend
-│   ├── app/
-│   │   ├── main.py       # FastAPI application
-│   │   ├── models/       # ML models (classifiers, analyzers)
-│   │   ├── services/     # Business logic services
-│   │   └── pipeline/     # RAG pipeline
-│   ├── config/           # Configuration
-│   ├── data/             # Data files (CSV, models)
-│   ├── requirements.txt
-│   └── README.md
-│
-└── rag-frontend/         # React frontend
-    ├── src/
-    │   ├── components/   # React components
-    │   ├── config/       # Configuration
-    │   ├── services/     # API services
-    │   └── App.jsx       # Main app
-    ├── package.json
-    └── README.md
+📁 root/code/
+├── 🧩 rag-frontend/                        → React + Tailwind UI
+├── 🖥️ rag-backend/                         → FastAPI backend
+├── 📊 rag-backend/data/                    → Stack Overflow data
+├── 🧠 rag-backend/app/pipeline/            → MiniLM + LDA
+├── 🧠 rag-experiment/langchain_version/    → LLM
+├── 📄 README.md                            → Docs
+|
+📁 root/docs/                               → Project Management Docs
 ```
+##### 🕒 [Minutes/](https://github.cs.adelaide.edu.au/MCI-Project-2025/OS1B/tree/main/docs/Minutes/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → Team Meeting Records
 
-## 🚀 Quick Start
+##### 🗓️ [Timelines/](https://github.cs.adelaide.edu.au/MCI-Project-2025/OS1B/tree/main/docs/Timelines/)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → Team Member Timeline Records                          
 
-### 🛠️ 开发模式（推荐 - 使用 Vite Dev Server）
+&nbsp;
 
-#### 快速启动（一键启动前后端）
+### 🗺️ Roadmap
+| Phase         | Scrum Master     | Timeline | Objective                                                                                  | Status      |
+|---------------|------------------|----------|--------------------------------------------------------------------------------------------|-------------|
+|  Sprint 1   |      -           | Week 1   | Understand the dataset structure and perform preprocessing on Stack Overflow data           |   ✅   |
+|  Sprint 2   |    Cong Deng     | Week 2   | Design and run ChatGPT prompts to extract challenges and required skills                    |   ✅   |
+|  Sprint 3   |    Sheng Wang    | Week 3   | Build and train an SVM classifier to categorize question types & try to use Bert for unsupervised learning       |   ✅   |
+|  Sprint 4   |    Tianhua Zhang | Week 4   | Pitch Presentation & Cluster and validate ChatGPT answers into sub-categories                                    |   ✅   |
+|  Sprint 5   |    Xin Wei       | Week 5   | Build up the pipeline & Business Case Documentation                                                              |   ✅   |
+|  Sprint 6   |    Yifan Gu      | Week 6   | Import documentation and run the pipeline                                                   |   ✅   |
+|  Sprint 7   |    Cong Deng     | Week 7   | Record and analyse the results & Milestone 1 - Product Demo Delivery                        |   ✅   |
+|  Sprint 8   |    Sheng Wang    | Week 8   | Testing Plan                                                        |  ✅  |
+|  Sprint 9   |    Tianhua Zhang | Week 9   | UI/UX Interface Design & Prepare final testing                                              |   ✅   |
+|  Sprint 10  |    Xin Wei       | Week 10  | Debugging & Bug fix                                                                         |   ✅   |
+|  Sprint 11  |    Yifan Gu      | Week 11  | Product Testing                                                                             |   ✅   |
+|  Sprint 12  |    Cong Deng     | Week 12  | Final Product Delivery & Report                                                             |   ✅   |
 
-**Linux/Mac:**
-```bash
-bash start_dev.sh
-```
-
-**Windows:**
-```batch
-start_dev.bat
-```
-
-#### 手动启动
-
-**1. 启动后端（端口 8001）**
-```bash
-cd rag-backend
-source venv/bin/activate  # Windows: venv\Scripts\activate
-uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
-```
-
-**2. 启动前端（新终端，端口 3000）**
-```bash
-cd rag-frontend
-npm install  # 首次运行
-npm run dev
-```
-
-**访问地址:**
-- 前端: http://localhost:3000
-- 后端 API: http://localhost:8001
-- API 文档: http://localhost:8001/docs
-
-**说明:**
-- 前端通过 Vite proxy 访问后端，API 请求会自动转发（`/api/*` → `http://localhost:8001/*`）
-- 后端监听 `0.0.0.0:8001` 以允许外部访问
-- CORS 已配置为允许 `localhost:3000`
-
-### 📦 生产模式（使用 Nginx）
-
-如果需要部署到生产环境，请参考 `deploy_vps.sh` 脚本。
-
-## ✨ Improvements Made
-
-### Backend Improvements
-
-1. **Modular Structure**: Separated code into clear modules:
-   - `models/`: ML models (classifier, LDA, sentiment)
-   - `services/`: Business logic (data loading, retrieval, LLM, similarity)
-   - `pipeline/`: Main RAG orchestration
-   - `config/`: Centralized configuration
-
-2. **Better Organization**: 
-   - Each service has a single responsibility
-   - Clear separation of concerns
-   - Easy to test and maintain
-
-3. **Documentation**: 
-   - Comprehensive docstrings
-   - Clear README files
-   - Inline comments where needed
-
-4. **Configuration**: 
-   - Centralized settings in `config/settings.py`
-   - Environment variable support
-   - Easy to customize
-
-### Frontend Improvements
-
-1. **Component Organization**: 
-   - Components grouped by purpose (Layout, Search, Content)
-   - Reusable components
-   - Clear component hierarchy
-
-2. **State Management**: 
-   - Better state organization
-   - Error handling
-   - Loading states
-
-3. **Code Quality**: 
-   - Consistent naming
-   - Better comments
-   - Improved accessibility
-
-4. **Configuration**: 
-   - API configuration separated
-   - Environment variable support
-
-## 📚 Key Features
-
-- **RAG Pipeline**: Retrieval-Augmented Generation for answering security questions
-- **Multiple Classifiers**: SVM for security category, LDA for topic classification
-- **Sentiment Analysis**: VADER sentiment analysis on questions
-- **Similarity Calculation**: Relevance and answer similarity metrics
-- **Modern UI**: Clean, responsive React interface
-- **Fast Search**: Instant search with loading states
-
-## 🔧 Configuration
-
-Both backend and frontend support environment variables for configuration. See individual README files for details.
-
-## 📝 Notes
-
-- Ensure all data files are in the correct directories
-- The SVM classifier model should be in `rag-backend/app/models/svm_classifier.joblib`
-- LDA models should be in `rag-backend/data/LDA_doc/`
-- CSV data should be in `rag-backend/data/`
-
-## 🎯 Next Steps
-
-1. Copy your data files to the appropriate directories
-2. Ensure the SVM classifier model is in place
-3. Start the backend server
-4. Start the frontend server
-5. Begin searching!
-
-## 🔄 更新 VPS 上的代码
-
-如果你的代码已经部署在 VPS 上，可以使用以下方法更新：
-
-### 方法 1: 使用更新脚本（推荐）
-
-**在 VPS 上运行:**
-```bash
-cd /opt/security_answer_system  # 或你的项目目录
-sudo bash update_vps.sh
-```
-
-### 方法 2: 手动更新
-
-**步骤 1: 停止服务**
-```bash
-sudo systemctl stop security-answer-system-backend
-```
-
-**步骤 2: 更新代码**
-```bash
-cd /opt/security_answer_system
-# 如果使用 Git
-git pull
-# 或者使用 scp 上传新代码
-```
-
-**步骤 3: 更新依赖**
-```bash
-# 后端
-cd rag-backend
-source venv/bin/activate
-pip install -r requirements.txt
-
-# 前端（如果需要）
-cd ../rag-frontend
-npm install
-npm run build
-```
-
-**步骤 4: 重启服务**
-```bash
-sudo systemctl daemon-reload
-sudo systemctl start security-answer-system-backend
-sudo systemctl status security-answer-system-backend
-```
-
-**步骤 5: 检查服务状态**
-```bash
-# 查看服务日志
-sudo journalctl -u security-answer-system-backend -f
-
-# 测试 API
-curl http://127.0.0.1:8001/health
-```
-
-### 方法 3: 使用 scp 上传代码
-
-**从本地到 VPS:**
-```bash
-# 上传整个项目目录
-scp -r current\ project\ copy/* user@your-vps-ip:/opt/security_answer_system/
-
-# 或者只上传修改的文件
-scp current\ project\ copy/rag-frontend/src/config/api.js user@your-vps-ip:/opt/security_answer_system/rag-frontend/src/config/
-scp current\ project\ copy/rag-frontend/vite.config.js user@your-vps-ip:/opt/security_answer_system/rag-frontend/
-scp current\ project\ copy/rag-backend/config/settings.py user@your-vps-ip:/opt/security_answer_system/rag-backend/config/
-```
-
-**然后在 VPS 上运行更新脚本或手动重启服务**
-
-## ⚠️ 重要提示
-
-1. **端口配置**: 默认后端端口已改为 **8001**
-2. **CORS 配置**: 开发环境允许 `localhost:3000`，生产环境可通过环境变量配置
-3. **超时设置**: API 超时时间已增加到 60 秒（LLM 响应可能较慢）
-4. **Vite Proxy**: 前端通过 `/api` 路径访问后端，Vite 会自动代理到 `localhost:8001`
-
+> 📝 *Status key:* ✅ Completed · ⏳ In Progress · 🔜 Not Started · 🧠 Final Stage
+---
+## 🏁🔚 The Project has been successfully completed. Thanks to all group members and our supervisor! -- 15th June

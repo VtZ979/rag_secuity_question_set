@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3498db" />
+      <stop offset="100%" stop-color="#2980b9" />
+    </linearGradient>
+    <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2ecc71" />
+      <stop offset="100%" stop-color="#27ae60" />
+    </linearGradient>
+    <linearGradient id="pink-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e74c3c" />
+      <stop offset="100%" stop-color="#c0392b" />
+    </linearGradient>
+    <linearGradient id="yellow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f1c40f" />
+      <stop offset="100%" stop-color="#f39c12" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main Lock Shape -->
+  <rect x="60" y="50" width="80" height="80" rx="5" ry="5" fill="url(#blue-gradient)" />
+  <rect x="75" y="40" width="50" height="30" rx="15" ry="15" fill="#2c3e50" />
+  <rect x="95" y="80" width="10" height="20" fill="#ecf0f1" />
+  <circle cx="100" cy="90" r="5" fill="#34495e" />
+  
+  <!-- Satellite Elements -->
+  <g transform="translate(45, 40) rotate(-15)">
+    <circle cx="0" cy="0" r="10" fill="#8e44ad" opacity="0.7" />
+    <path d="M-7,-7 L7,7 M-7,7 L7,-7" stroke="#ecf0f1" stroke-width="2" />
+  </g>
+  
+  <g transform="translate(155, 60) rotate(15)">
+    <rect x="-10" y="-10" width="20" height="20" fill="url(#green-gradient)" opacity="0.8" />
+    <path d="M-5,-5 L5,5 M-5,5 L5,-5" stroke="#ecf0f1" stroke-width="2" />
+  </g>
+  
+  <g transform="translate(60, 150)">
+    <rect x="-8" y="-8" width="16" height="16" fill="url(#pink-gradient)" rx="3" ry="3" opacity="0.8" />
+    <path d="M0,-5 L0,5 M-5,0 L5,0" stroke="#ecf0f1" stroke-width="2" />
+  </g>
+  
+  <g transform="translate(130, 140)">
+    <rect x="-8" y="-8" width="16" height="16" fill="url(#yellow-gradient)" rx="3" ry="3" transform="rotate(45)" opacity="0.8" />
+    <circle cx="0" cy="0" r="3" fill="#ecf0f1" />
+  </g>
+  
+  <!-- Connecting Lines -->
+  <path d="M100,100 Q130,90 145,70" stroke="#a0a0a0" stroke-width="2" fill="none" opacity="0.5" />
+  <path d="M100,100 Q55,80 50,50" stroke="#a0a0a0" stroke-width="2" fill="none" opacity="0.5" />
+  <path d="M100,100 Q70,130 65,145" stroke="#a0a0a0" stroke-width="2" fill="none" opacity="0.5" />
+  <path d="M100,100 Q110,130 125,135" stroke="#a0a0a0" stroke-width="2" fill="none" opacity="0.5" />
+  
+  <!-- Gear Icons -->
+  <g transform="translate(140, 40)">
+    <path d="M0,-10 L2,-9 L3,-3 L9,-2 L10,0 L9,2 L3,3 L2,9 L0,10 L-2,9 L-3,3 L-9,2 L-10,0 L-9,-2 L-3,-3 L-2,-9 Z" fill="#7f8c8d" />
+    <circle cx="0" cy="0" r="4" fill="#95a5a6" />
+  </g>
+  
+  <g transform="translate(50, 110) rotate(15)">
+    <path d="M0,-8 L2,-7 L3,-3 L7,-2 L8,0 L7,2 L3,3 L2,7 L0,8 L-2,7 L-3,3 L-7,2 L-8,0 L-7,-2 L-3,-3 L-2,-7 Z" fill="#7f8c8d" />
+    <circle cx="0" cy="0" r="3" fill="#95a5a6" />
+  </g>
+</svg> 

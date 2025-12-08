@@ -1,0 +1,58 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# FastAPI logs or temporary data
+*.log
+*.db
+*.sqlite3
+*.env
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints
+
+# Pydantic cache
+__pydantic__/ 
+
+# LangChain/Chroma vector store
+chroma_db/
+*.pkl
+
+# Ollama-generated model cache
+ollama_models/
+
+# PyCharm
+.idea/
+
+# Test/coverage
+htmlcov/
+.tox/
+.coverage
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Compiled C extensions
+*.so
+
+# Build files
+build/
+dist/
+*.egg-info/

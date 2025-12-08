@@ -1,0 +1,19 @@
+[Unit]
+Description=RAG Backend Service on Port 8001
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/path/to/OS1B-main/Codes/rag-backend
+Environment="PATH=/path/to/OS1B-main/Codes/rag-backend/venv/bin"
+Environment="ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4173,https://your-domain.com"
+ExecStart=/path/to/OS1B-main/Codes/rag-backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8001 --no-reload
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
