@@ -131,10 +131,32 @@ cd "$BACKEND_DIR"
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
     python3 -m venv venv
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}[ERROR] Failed to create virtual environment${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}[OK] Virtual environment created${NC}"
+fi
+
+# Check if activate script exists
+if [ ! -f "venv/bin/activate" ]; then
+    echo -e "${RED}[ERROR] Virtual environment activation script not found${NC}"
+    echo "Trying to recreate virtual environment..."
+    rm -rf venv
+    python3 -m venv venv
+    if [ $? -ne 0 ] || [ ! -f "venv/bin/activate" ]; then
+        echo -e "${RED}[ERROR] Failed to create virtual environment${NC}"
+        exit 1
+    fi
 fi
 
 # Activate virtual environment
+echo "Activating virtual environment..."
 source venv/bin/activate
+if [ $? -ne 0 ]; then
+    echo -e "${RED}[ERROR] Failed to activate virtual environment${NC}"
+    exit 1
+fi
 
 # Upgrade pip
 echo "Upgrading pip..."
@@ -144,6 +166,10 @@ pip install --upgrade pip --quiet
 echo "Installing backend dependencies..."
 pip install --upgrade setuptools wheel --quiet
 pip install -r requirements.txt
+if [ $? -ne 0 ]; then
+    echo -e "${RED}[ERROR] Failed to install dependencies${NC}"
+    exit 1
+fi
 
 echo -e "${GREEN}[OK] Backend setup complete${NC}"
 echo ""
@@ -177,7 +203,18 @@ echo ""
 echo -e "${YELLOW}[Step 5/6] Starting backend service on port $BACKEND_PORT...${NC}"
 
 cd "$BACKEND_DIR"
+
+# Check and activate virtual environment
+if [ ! -f "venv/bin/activate" ]; then
+    echo -e "${RED}[ERROR] Virtual environment not found in $BACKEND_DIR${NC}"
+    exit 1
+fi
+
 source venv/bin/activate
+if [ $? -ne 0 ]; then
+    echo -e "${RED}[ERROR] Failed to activate virtual environment${NC}"
+    exit 1
+fi
 
 # Start backend in background
 echo "Starting backend server..."
