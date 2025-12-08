@@ -1,5 +1,5 @@
 import pandas as pd
-from langchain.docstore.document import Document
+from langchain_core.documents import Document
 import os
 
 def load_stackoverflow_docs():

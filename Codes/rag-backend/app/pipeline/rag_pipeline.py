@@ -64,7 +64,12 @@ def initialize_rag():
   
 def get_rag_response(question: str):
     # get relevant docs
-    relevant_docs = retriever.get_relevant_documents(question)
+    # Try new version first (invoke), fallback to old version (get_relevant_documents)
+    try:
+        relevant_docs = retriever.invoke(question)
+    except (AttributeError, TypeError):
+        # Fallback for older langchain versions
+        relevant_docs = retriever.get_relevant_documents(question)
     print(relevant_docs)
     # process relevant docs and generate responses
     response = process_relevant_docs(relevant_docs, question, prompt, llm, embedding, clf)
