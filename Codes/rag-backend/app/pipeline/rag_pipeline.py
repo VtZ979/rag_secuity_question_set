@@ -1,6 +1,24 @@
 from langchain_community.llms import Ollama
-from langchain import hub
 from langchain_core.prompts import ChatPromptTemplate
+
+# Import hub - try different methods for compatibility
+hub = None
+try:
+    # Try old way (langchain < 0.1.0)
+    from langchain import hub
+except ImportError:
+    try:
+        # Try new way (langchain >= 0.1.0, uses langchainhub)
+        from langchainhub import Client
+        hub_client = Client()
+        # Create a simple wrapper to maintain compatibility
+        class HubWrapper:
+            def pull(self, prompt_id):
+                return hub_client.pull(prompt_id)
+        hub = HubWrapper()
+    except ImportError:
+        print("[WARNING] langchainhub not available, will use local prompt")
+        hub = None
 
 from .data_loader import load_stackoverflow_docs
 from .retriever_builder import build_retriever
@@ -27,6 +45,8 @@ def initialize_rag():
     # # Prompt
     # Try to pull from hub, fallback to local prompt if network fails
     try:
+        if hub is None:
+            raise ImportError("hub not available")
         prompt = hub.pull("rlm/rag-prompt")
         print("prompt pulled from hub...")
     except Exception as e:
