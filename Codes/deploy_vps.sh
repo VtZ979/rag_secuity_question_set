@@ -218,7 +218,8 @@ fi
 
 # Start backend in background
 echo "Starting backend server..."
-nohup uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT --no-reload > "$LOG_DIR/backend.log" 2>&1 &
+# Note: --no-reload is not supported in older uvicorn versions, default is no-reload
+nohup uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT > "$LOG_DIR/backend.log" 2>&1 &
 BACKEND_PID=$!
 
 # Save PID
