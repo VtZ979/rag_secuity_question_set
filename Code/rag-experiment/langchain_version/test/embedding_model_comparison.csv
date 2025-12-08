@@ -1,0 +1,232 @@
+model,query,postid,original_question
+sentence-transformers/all-MiniLM-L6-v2,php password,19182076,"My problem is that I can still log in even I typed in the wrong password. I can't seem to know if there's a problem on how I decoded the password.
+
+encryption key:
+
+$config['encryption_key'] = 'formcreatormj';
+Log in code:
+
+function login($email,$password){
+ $pw = $this->encrypt->decode($password);
+
+$this->db->where('email',$email);
+ $this->db->where('password', $pw);
+
+ $query=$this->db->get('user');
+
+ if($query->num_rows()>0){
+ foreach($query->result() as $rows){
+ //add all data to session
+ $this->addSession($rows->id, $rows->username);
+ }
+
+ return true;
+ }
+ return false; 
+}"
+sentence-transformers/all-MiniLM-L6-v2,php password,5280486,I would like to validate password in password field with say minimum 6 characters and maximum 12. and also it should be alphanumeric character. how can I validate the same with PHP?? and also need to validate email too..
+sentence-transformers/all-MiniLM-L6-v2,php password,51791441,"I want to write a script in PHP that executes a samba mount temporary by command
+
+sudo mount -t cifs //xx.yy.zz/windows_shared /var/www/html/test -o user=TestUserWindow,uid=testuser,gid=testgroup
+As you know it will prompt for a password of WINDOWS not linux.
+
+But I want to run the script silently using shell_exec().
+How can I pass the password automatically without prompt?"
+sentence-transformers/all-mpnet-base-v2,php password,19182076,"My problem is that I can still log in even I typed in the wrong password. I can't seem to know if there's a problem on how I decoded the password.
+
+encryption key:
+
+$config['encryption_key'] = 'formcreatormj';
+Log in code:
+
+function login($email,$password){
+ $pw = $this->encrypt->decode($password);
+
+$this->db->where('email',$email);
+ $this->db->where('password', $pw);
+
+ $query=$this->db->get('user');
+
+ if($query->num_rows()>0){
+ foreach($query->result() as $rows){
+ //add all data to session
+ $this->addSession($rows->id, $rows->username);
+ }
+
+ return true;
+ }
+ return false; 
+}"
+sentence-transformers/all-mpnet-base-v2,php password,5280486,I would like to validate password in password field with say minimum 6 characters and maximum 12. and also it should be alphanumeric character. how can I validate the same with PHP?? and also need to validate email too..
+sentence-transformers/all-mpnet-base-v2,php password,2673476,"I have a site hosted on 1and1 and a couple of weeks ago I noticed a hacker had put a .php file on the server that when viewed in a browser exposed my DB schema, DB connection strings, FTP account (for file uploads using a form), etc, etc. Naturally I panicked and I wiped the server and reuploaded my files. Fortunatley I encrypt passwords using MD5 and I don't store things like credit card details, etc, etc.
+
+Now I checked my files and with all user input I use a clean function (htmlentities, sql_real_escape_string, etc, etc) that strips the input of any XSS or SQL injection. I have also made sure that the session key gets re-engineered when a user status changes (like they log into their account) to prevent session hijacking, my folder permissions are set to 755 and file permission are 644.
+
+Has anyone got any idea how this could have happened? Or if I'm missing something"
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,php password,28400739,"I want my login password to be secured. So I came up to use the PHP's crypt() function to hash the password before inserting it to database. But Im having trouble when comparing the user input password from the converted hash password. Here's my code:
+
+<?php
+$password = 'hello_password';
+
+# A higher ""cost"" is more secure
+$cost = 10;
+
+# Create a random salt
+$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+
+# Blowfish algorithm. 
+$salt = sprintf(""$2a$%02d$"", $cost) . $salt;
+$salted_password = $password . $salt; // apply salt to password
+
+# hash the password
+$hash_password = hash('sha256', $salted_password);
+
+$userInput = 'hello_password'; // suppose this is the user input password 
+
+if (hash('sha256',$userInput) == $password) {
+ echo ""Password Verified."";
+}
+else {
+ echo ""Incorrect Password"";
+}
+?>
+
+But it always displays Incorrect Password although my password is correct. I don't want to use ""hash_equals"" function as it is not supported with my current PHP version. Can someone help me with this ? Thanks"
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,php password,2495472,"I have created an admin panel for a client in PHP, which requires a login. Here is the code at the top of the admin page requiring the user to be logged in:
+
+admin.php
+
+<?php
+session_start();
+require(""_lib/session_functions.php"");
+require(""_lib/db.php"");
+db_connect();
+
+
+//if the user has not logged in
+if(!isLoggedIn())
+{
+ header('Location: login_form.php');
+ die();
+}
+?>
+Obviously, the if statement is what catches them and forces them to log in. Here is the code on the resulting login page:
+
+login_form.php
+
+<form name=""login"" action=""login.php"" method=""post"">
+ Username: <input type=""text"" name=""username"" />
+ Password: <input type=""password"" name=""password"" />
+ <input type=""submit"" value=""Login"" />
+</form>
+Which posts info to this controller page:
+
+login.php
+
+<?php
+session_start(); //must call session_start before using any $_SESSION variables
+include '_lib/session_functions.php';
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+include '_lib/db.php'; 
+db_connect(); // Connect to the DB
+
+$username = mysql_real_escape_string($username);
+
+$query = ""<grab username, hashed password from DB>;"";
+$result = mysql_query($query);
+
+if(mysql_num_rows($result) < 1) //no such user exists
+{
+ header('Location: login_form.php?login=fail');
+ die();
+}
+
+$userData = mysql_fetch_array($result, MYSQL_ASSOC);
+db_disconnect();
+$hash = hash('<myHashingFunction>', $password . $userData['salt']);
+
+if($hash != $userData['password']) //incorrect password
+{
+ header('Location: login_form.php?login=fail');
+ die();
+}
+else
+{
+ validateUser(); //sets the session data for this user
+}
+
+header('Location: admin.php');
+
+?>
+and the session functions page that provides login functions contains this:
+
+session_functions.php
+
+<?php
+function validateUser()
+{
+ session_regenerate_id (); //this is a security measure
+ $_SESSION['valid'] = 1;
+ $_SESSION['userid'] = $username;
+}
+
+function isLoggedIn()
+{
+ if($_SESSION['valid'])
+ return true;
+
+ return false;
+}
+
+function logout()
+{
+ $_SESSION = array(); //destroy all of the session variables
+ if (ini_get(""session.use_cookies"")) {
+ $params = session_get_cookie_params();
+ setcookie(session_name(), '', time() - 42000,
+ $params[""path""], $params[""domain""],
+ $params[""secure""], $params[""httponly""]
+ );
+ }
+ session_destroy();
+}
+?>
+I grabbed the sessions_functions.php code of an online tutorial, so it could be suspicious.
+
+Any ideas why the user logs in to the admin panel, tries to do something, is forced to re-login, and THEN is allowed to do stuff like normal in the admin panel?"
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,php password,12931305,"i want check in my mysql database if the user enter the username and password correctly and then go in the home.html, i have some javascript code that detect when the user click the login button, but i can't understand how check in the database with javascript, i know how do that in php, but i can't understand how call the php from the javascript or do it directly in the js code, this is some code:
+
+the form in the html:
+
+ <div id=""password"">
+ <div class=""input username""><input type=""text"" placeholder=""User name"" /></div>
+ <div class=""input password""><input type=""password"" placeholder=""Password"" /></div>
+ <button>Log in</button>
+ <a href=""#"" class=""back"">Back</a>
+ </div>
+</div>
+then in my Login.js file i have this:
+
+function forgot() {
+//Se ho scritto la password allora fai l'animazione wobble, altrimenti vai in home.html
+ if($(""#password .input.password input"").attr(""value"")!='') {
+ $.notification( 
+ {
+ title: ""Wrong password"",
+ content: ""Just leave the password field empty to log in."",
+ icon: ""!""
+ }
+ );
+ $(""#password"").removeClass().addClass(""animated wobble"").delay(1000).queue(function(){ 
+ $(this).removeClass();
+ $(this).clearQueue();
+ });
+ $(""#password .input.password input"").attr(""value"", """").focus();
+ } else {
+ document.location.href = ""home.html"";
+ }
+}
+now for the login i detect only if the field are empty, but i want detect mysql database how i can check it? because i want if the user enter wrong username and password span a $notification alert, anyone can help me?"
