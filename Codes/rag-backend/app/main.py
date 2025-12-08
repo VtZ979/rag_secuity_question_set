@@ -42,22 +42,14 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # Define allowed origins for CORS (Cross-Origin Resource Sharing)
-# For VPS deployment, allow all origins or configure specific domains
-import os
+origins = [
+    "http://127.0.0.1:5173",  
+]
 
-# Get allowed origins from environment variable or use defaults
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173"
-).split(",")
-
-# For production, you can set ALLOWED_ORIGINS environment variable:
-# export ALLOWED_ORIGINS="https://your-domain.com,https://www.your-domain.com"
-
-# Add CORS middleware to allow requests from the frontend
+# Add CORS middleware to allow requests from the frontend (localhost:3000)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,6 +1,11 @@
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+# Compatible import for TextSplitter - try new location first, fallback to old
+try:
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+except ImportError:
+    # Fallback for older langchain versions
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import warnings
 import logging

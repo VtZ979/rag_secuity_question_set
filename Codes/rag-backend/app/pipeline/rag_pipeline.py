@@ -1,7 +1,7 @@
 from langchain_community.llms import Ollama
 from langchain_core.prompts import ChatPromptTemplate
 
-# Import hub - try different methods for compatibility
+# Compatible import for hub - try different methods for compatibility
 hub = None
 try:
     # Try old way (langchain < 0.1.0)

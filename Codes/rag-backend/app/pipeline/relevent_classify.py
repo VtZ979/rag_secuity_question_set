@@ -1,5 +1,10 @@
 from typing import Literal
-from langchain_core.pydantic_v1 import BaseModel, Field
+# Compatible import for pydantic - try langchain_core.pydantic_v1 first, fallback to pydantic
+try:
+    from langchain_core.pydantic_v1 import BaseModel, Field
+except ImportError:
+    # Fallback to standard pydantic if pydantic_v1 is not available
+    from pydantic import BaseModel, Field
 from ollama import chat
 import time
 

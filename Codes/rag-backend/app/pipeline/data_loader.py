@@ -1,5 +1,10 @@
 import pandas as pd
-from langchain_core.documents import Document
+# Compatible import for Document - try new location first, fallback to old
+try:
+    from langchain_core.documents import Document
+except ImportError:
+    # Fallback for older langchain versions
+    from langchain.docstore.document import Document
 import os
 
 def load_stackoverflow_docs():
